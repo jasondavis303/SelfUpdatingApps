@@ -21,4 +21,21 @@ jobs:
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
+          dotnet VersionCreator.dll
+
+      - name: Get version
+        id: get_version
+        uses: jasondavis303/net-sdk-proj-file-version
+        with:
+          PROJ_FILE: version.txt
+
+      - name: Tag and Release
+        uses: jasondavis303/tag-and-release-and-upload
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           
+          # Use the version from the previous step
+          version: v${{ steps.get_version.outputs.ASSEMBLY_VERSION }}
+          
+          assets: '[ "publish\suac.exe", "publish\suac", "publish\suag.exe" ]'
+          overwrite: true
