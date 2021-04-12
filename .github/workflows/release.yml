@@ -19,7 +19,7 @@ jobs:
       - name: Set Version
         id: set_version
         run: |
-          .\tsv.exe --xml-files SelfUpdatingConsole\SelfUpdatingConsole.csproj SelfUpdatingWinForms\SelfUpdatingWinForms.csproj --env-file $env.GITHUB_ENV --set-ov
+          .\tsv.exe --xml-files SelfUpdatingConsole\SelfUpdatingConsole.csproj SelfUpdatingWinForms\SelfUpdatingWinForms.csproj --set-ov
 
      
       - name: Build
