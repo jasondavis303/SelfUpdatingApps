@@ -25,6 +25,7 @@ jobs:
         uses: jasondavis303/net-sdk-proj-file-version@v1.0.1
         with:
           PROJ_FILE: version
+          
      
       - name: Build
         run: |
