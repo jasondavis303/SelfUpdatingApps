@@ -18,6 +18,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp_Console", "TestApp_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp_WinForms", "TestApp_WinForms\TestApp_WinForms.csproj", "{549871E4-F514-48F3-9608-DAE02AF0D14E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{01CF28FF-B463-44DF-A846-3697E87A642C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{44A0B144-CC41-4F0F-9E0B-61F70FCB55AA}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharedCode\SharedCode.projitems*{78478b50-104e-4a2d-82f5-5b19129be5c8}*SharedItemsImports = 13
@@ -48,6 +55,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{01CF28FF-B463-44DF-A846-3697E87A642C} = {73EA4BEF-0F60-4A70-B901-4ED77F31B33D}
+		{44A0B144-CC41-4F0F-9E0B-61F70FCB55AA} = {01CF28FF-B463-44DF-A846-3697E87A642C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03DE8245-BA52-4768-BD3B-5DD5D2A69D06}
