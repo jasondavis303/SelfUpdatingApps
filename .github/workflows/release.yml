@@ -21,7 +21,6 @@ jobs:
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
-          cd publish
           dotnet VersionCreator.dll
 
       - name: Get version
@@ -29,6 +28,8 @@ jobs:
         uses: jasondavis303/net-sdk-proj-file-version@v1.0.1
         with:
           PROJ_FILE: version.txt
+
+      - run: cd publish
 
       - name: Tag and Release
         uses: jasondavis303/tag-and-release-and-upload@1.3
