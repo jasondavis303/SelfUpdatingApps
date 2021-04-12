@@ -8,7 +8,7 @@ namespace SelfUpdatingApp
 {
     static class Packager
     {
-        public static async Task BuildPackageAsync(CLOptions opts, IProgress<ProgressData> progress = null)
+        public static async Task BuildPackageAsync(CLOptions.BuildOptions opts, IProgress<ProgressData> progress = null)
         {
             if (!opts.SourceExe.EndsWith(".exe", StringComparison.CurrentCultureIgnoreCase))
                 throw new Exception("The source-exe argument must be an executable file");
@@ -38,22 +38,24 @@ namespace SelfUpdatingApp
                 inDir += Path.DirectorySeparatorChar;
 
             string exeName = Path.GetFileName(opts.SourceExe);
-            string xmlFile = Path.Combine(opts.TargetDir, opts.AppId + ThisApp.Extension);
-            string zipFile = Path.Combine(opts.TargetDir, opts.AppId + ".zip");
+            string xmlFile = Path.Combine(opts.TargetDir, "packages", opts.AppId + ThisApp.Extension);
+            string zipFile = Path.Combine(opts.TargetDir, "packages", opts.AppId + ".zip");
+            string friendlyFile = Path.Combine(opts.TargetDir, opts.Name + ThisApp.Extension);
             string msg = $"Building v{version}";
 
 
             //Build the xml
             progress?.Report(new ProgressData(msg));
-            new XmlData
+            var package = new XmlData
             {
-                Depo = opts.Depo,
+                Depo = Path.Combine(opts.Depo, "packages"),
                 ExeName = exeName,
                 Id = opts.AppId,
                 Name = opts.Name,
                 Version = version
-            }.Save(xmlFile);
-
+            };
+            package.Save(xmlFile);
+            package.Save(friendlyFile);
 
             //Create the package
             double totalRead = 0;

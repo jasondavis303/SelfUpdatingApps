@@ -7,14 +7,19 @@ namespace SelfUpdatingApp
 {
     partial class frmInstaller : Form
     {
-        readonly CLOptions _opts;
+        readonly string _packageFile;
+        readonly int _processId;
+        readonly bool _createShortcuts;
+
         readonly object _locker = new object();
 
-        public frmInstaller(CLOptions opts)
+        public frmInstaller(string packageFile, int processId, bool createShortcuts)
         {
             InitializeComponent();
             pbImage.Image = Properties.Resources.install;
-            _opts = opts;
+            _packageFile = packageFile;
+            _processId = processId;
+            _createShortcuts = createShortcuts;
         }
 
         private async void frmInstaller_Load(object sender, EventArgs e)
@@ -30,27 +35,29 @@ namespace SelfUpdatingApp
                     }
                 });
 
-                if(_opts.ProcessId > 0)
+                if(_processId > 0)
                 {
                     await Task.Run(() =>
                     {
                         prog.Report(new ProgressData("Waiting for previous app to close"));
-                        try { Process.GetProcessById(_opts.ProcessId).WaitForExit(); }
+                        try { Process.GetProcessById(_processId).WaitForExit(); }
                         catch { }
                     });
                 }
 
-                string uri = _opts.Action == CLOptions.Actions.Install ? _opts.PackageFile : Path2.ServerPackage(XmlData.Read(Path2.LocalPackage(_opts.AppId)));
-                
-                var ret = await Installer.InstallAsync(uri, prog, _opts.Action == CLOptions.Actions.Install);
+                var ret = await Installer.InstallAsync(_packageFile, prog, _createShortcuts);
                 if (!ret.Success)
                     throw ret.Error;
                 Process.Start(Path2.InstalledExe(XmlData.Read(Path2.LocalPackage(ret.Id))));
 
             }
+            catch (AggregateException ex)
+            {
+                Program.ShowErrors(ex.InnerExceptions, false);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.ShowErrors(new Exception[] { ex }, false);
             }
 
             Close();

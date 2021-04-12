@@ -5,10 +5,10 @@ namespace SelfUpdatingApp
 {
     partial class frmUninstaller : Form
     {
-        readonly CLOptions _opts;
+        readonly CLOptions.UninstallOptions _opts;
         readonly object _locker = new object();
 
-        public frmUninstaller(CLOptions opts)
+        public frmUninstaller(CLOptions.UninstallOptions opts)
         {
             InitializeComponent();
             pbImage.Image = Properties.Resources.uninstall;
@@ -30,13 +30,16 @@ namespace SelfUpdatingApp
 
                 await Uninstaller.UninstallAsync(_opts.AppId, prog);
             }
+            catch (AggregateException ex)
+            {
+                Program.ShowErrors(ex.InnerExceptions, false);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.ShowErrors(new Exception[] { ex }, false);
             }
 
             Close();
-            Application.Exit();
         }
     }
 }

@@ -5,10 +5,10 @@ namespace SelfUpdatingApp
 {
     partial class frmPackager : Form
     {
-        readonly CLOptions _opts;
+        readonly CLOptions.BuildOptions _opts;
         readonly object _locker = new object();
 
-        public frmPackager(CLOptions opts)
+        public frmPackager(CLOptions.BuildOptions opts)
         {
             InitializeComponent();
             pbImage.Image = Properties.Resources.install;
@@ -30,13 +30,16 @@ namespace SelfUpdatingApp
 
                 await Packager.BuildPackageAsync(_opts, prog);
             }
+            catch (AggregateException ex)
+            {
+                Program.ShowErrors(ex.InnerExceptions, false);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.ShowErrors(new Exception[] { ex }, false);
             }
 
             Close();
-            Application.Exit();
         }
     }
 }
