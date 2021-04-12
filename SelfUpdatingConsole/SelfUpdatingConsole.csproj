@@ -13,6 +13,8 @@
     <PackageProjectUrl>https://github.com/jasondavis303/SelfUpdatingApps</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps</RepositoryUrl>
     <Authors>jasondavis303</Authors>
+    <Copyright>jasondavis303</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

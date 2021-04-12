@@ -13,6 +13,8 @@
     <PackageProjectUrl>https://github.com/jasondavis303/SelfUpdatingApps</PackageProjectUrl>
     <Authors>jasondavis303</Authors>
     <Company>jasondavis303</Company>
+    <Copyright>jasondavis303</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
