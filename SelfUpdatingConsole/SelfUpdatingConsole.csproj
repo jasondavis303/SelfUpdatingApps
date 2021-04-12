@@ -10,6 +10,9 @@
     <StartupObject>SelfUpdatingApp.Program</StartupObject>
     <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/jasondavis303/SelfUpdatingApps</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps</RepositoryUrl>
+    <Authors>jasondavis303</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

@@ -9,6 +9,10 @@
     <AssemblyName>suag</AssemblyName>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     <StartupObject>SelfUpdatingApp.Program</StartupObject>
+    <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/jasondavis303/SelfUpdatingApps</PackageProjectUrl>
+    <Authors>jasondavis303</Authors>
+    <Company>jasondavis303</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
