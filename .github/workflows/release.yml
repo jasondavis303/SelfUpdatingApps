@@ -33,7 +33,7 @@ jobs:
         run: |
           dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
           dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
-          dotnet nuget push "*.nupkg" --skip-duplicate --api-key ${{secrets.NUGET_KEY}}
+          dotnet nuget push "*.nupkg" --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json
 
           
 
