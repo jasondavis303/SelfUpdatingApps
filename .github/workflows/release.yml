@@ -4,7 +4,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  release:
     runs-on: windows-latest
     steps:
     
@@ -21,6 +21,7 @@ jobs:
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
+          cd publish
           dotnet VersionCreator.dll
 
       - name: Get version
@@ -37,5 +38,5 @@ jobs:
           # Use the version from the previous step
           version: v${{ steps.get_version.outputs.ASSEMBLY_VERSION }}
           
-          assets: '[ "publish\suac.exe", "publish\suac", "publish\suag.exe" ]'
+          assets: '[ "suac.exe", "suac", "suag.exe" ]'
           overwrite: true
