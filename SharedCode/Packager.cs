@@ -48,7 +48,7 @@ namespace SelfUpdatingApp
             progress?.Report(new ProgressData(msg));
             var package = new XmlData
             {
-                Depo = Path.Combine(opts.Depo, "packages"),
+                Depo = opts.Depo,
                 ExeName = exeName,
                 Id = opts.AppId,
                 Name = opts.Name,

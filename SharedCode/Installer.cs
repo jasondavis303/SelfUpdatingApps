@@ -13,8 +13,8 @@ namespace SelfUpdatingApp
         {
             try
             {
-                var localData = XmlData.Read(Path2.LocalPackage(id));
-                var serverData = await XmlData.ReadAsync(Path2.ServerPackage(localData)).ConfigureAwait(false);
+                var localData = XmlData.Read(Path2.LocalManifest(id));
+                var serverData = await XmlData.ReadAsync(Path2.DepoManifest(localData)).ConfigureAwait(false);
                 return serverData.Version > localData.Version;
             }
             catch
@@ -33,7 +33,7 @@ namespace SelfUpdatingApp
         {
             try
             {
-                return XmlData.Read(Path2.LocalPackage(id)).Version;
+                return XmlData.Read(Path2.LocalManifest(id)).Version;
             }
             catch
             {
@@ -80,7 +80,7 @@ namespace SelfUpdatingApp
                 progress?.Report(new ProgressData(status));
 
                 //Unzip from the web                   
-                string zipSrc = Path.Combine(serverData.Depo, serverData.Id + ".zip");
+                string zipSrc = Path2.DepoPackage(serverData);
                 if (StreamHelper.IsWebUrl(zipSrc))
                 {
                     using var response = await StreamHelper.GetWebResponseAsync(zipSrc).ConfigureAwait(false);
@@ -116,7 +116,7 @@ namespace SelfUpdatingApp
                 }
 
                 //Success
-                serverData.Save(Path2.LocalPackage(serverData.Id));
+                serverData.Save(Path2.LocalManifest(serverData.Id));
                 progress?.Report(new ProgressData("Done", 100));
             }
             catch (Exception ex)

@@ -24,19 +24,27 @@ namespace SelfUpdatingApp
         
 
         /// <summary>
-        /// Location of the specified package file
+        /// Location of the specified manifest file
         /// </summary>
-        public static string LocalPackage(string id) => Path.Combine(DataPath, id + ThisApp.Extension);
+        public static string LocalManifest(string id) => Path.Combine(DataPath, id + ThisApp.Extension);
 
         /// <summary>
-        /// Location of the server package file
+        /// Location of the server manifest file
         /// </summary>
-        public static string ServerPackage(XmlData data)
+        public static string DepoManifest(XmlData data)
         {
             string ret = data.Depo;
             if (!ret.EndsWith("/"))
                 ret += '/';
-            return ret + data.Id + ThisApp.Extension;
+            return ret + "packages/" + data.Id + ThisApp.Extension;
+        }
+
+        public static string DepoPackage(XmlData data)
+        {
+            string ret = data.Depo;
+            if (!ret.EndsWith("/"))
+                ret += '/';
+            return ret + "packages/" + data.Id + ".zip";
         }
 
         /// <summary>

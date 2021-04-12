@@ -48,7 +48,7 @@ namespace SelfUpdatingApp
                 var ret = await Installer.InstallAsync(_packageFile, prog, _createShortcuts);
                 if (!ret.Success)
                     throw ret.Error;
-                Process.Start(Path2.InstalledExe(XmlData.Read(Path2.LocalPackage(ret.Id))));
+                Process.Start(Path2.InstalledExe(XmlData.Read(Path2.LocalManifest(ret.Id))));
 
             }
             catch (AggregateException ex)

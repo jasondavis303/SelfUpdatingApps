@@ -24,7 +24,7 @@ namespace SelfUpdatingApp
                 //Delete the desktop shortcut
                 try
                 {
-                    XmlData data = await XmlData.ReadAsync(Path2.LocalPackage(id)).ConfigureAwait(false);
+                    XmlData data = await XmlData.ReadAsync(Path2.LocalManifest(id)).ConfigureAwait(false);
                     progress?.Report(new ProgressData("Deleting shortcuts"));
                     string shortcut = Path2.DesktopLinkPath(data.Name);
                     if (File.Exists(shortcut))
@@ -70,7 +70,7 @@ namespace SelfUpdatingApp
                     }
                 }
 
-                string xmlPath = Path2.LocalPackage(id);
+                string xmlPath = Path2.LocalManifest(id);
                 if (File.Exists(xmlPath))
                     File.Delete(xmlPath);
             });

@@ -38,7 +38,7 @@ namespace SelfUpdatingApp
                     var installed = Installer.InstallAsync(opts.Package, prog, true).Result;
                     if (!installed.Success)
                         throw installed.Error;
-                    var installedData = XmlData.Read(Path2.LocalPackage(installed.Id));
+                    var installedData = XmlData.Read(Path2.LocalManifest(installed.Id));
                     Process.Start(Path2.InstalledExe(installedData));
                 });
 
@@ -49,10 +49,10 @@ namespace SelfUpdatingApp
                         try { Process.GetProcessById(opts.ProcessId).WaitForExit(); }
                         catch { }
 
-                    var updated = Installer.InstallAsync(Path2.ServerPackage(XmlData.Read(Path2.LocalPackage(opts.AppId))), prog, false).Result;
+                    var updated = Installer.InstallAsync(Path2.DepoManifest(XmlData.Read(Path2.LocalManifest(opts.AppId))), prog, false).Result;
                     if (!updated.Success)
                         throw updated.Error;
-                    var updatedData = XmlData.Read(Path2.LocalPackage(updated.Id));
+                    var updatedData = XmlData.Read(Path2.LocalManifest(updated.Id));
                     Process.Start(Path2.InstalledExe(updatedData));
                 });
 

@@ -60,7 +60,7 @@ namespace SelfUpdatingApp
                 parsed.WithParsed<CLOptions.UpdateOptions>(opts =>
                 {
                     EnableWin();
-                    string packageFile = Path2.ServerPackage(XmlData.Read(Path2.LocalPackage(opts.AppId)));
+                    string packageFile = Path2.DepoManifest(XmlData.Read(Path2.LocalManifest(opts.AppId)));
                     Application.Run(new frmInstaller(packageFile, opts.ProcessId, false));
                 });
 
