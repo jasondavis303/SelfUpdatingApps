@@ -18,22 +18,15 @@ jobs:
 
       - name: Set Version
         run: |
-          dotnet VersionCreator.dll
-
-      - name: Get version
-        id: get_version
-        uses: jasondavis303/net-sdk-proj-file-version@v1.0.1
-        with:
-          PROJ_FILE: version.txt
-       
+          .\tsv.exe --env-file $GITHUB_ENV
      
       - name: Build
         run: |
-          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -p:Version=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
-          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -p:Version=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
-          dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -p:Version=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
-          dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
-          dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
+          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -p:Version=${{ env.TIMESTAMP_VERSION }} -o .
+          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -p:Version=${{ env.TIMESTAMP_VERSION }} -o .
+          dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -p:Version=${{ env.TIMESTAMP_VERSION }} -o .
+          dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -p:PackageVersion=${{ env.TIMESTAMP_VERSION }} -o .
+          dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -p:PackageVersion=${{ env.TIMESTAMP_VERSION }} -o .
           dotnet nuget push "*.nupkg" --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json
 
 
@@ -41,9 +34,6 @@ jobs:
         uses: jasondavis303/tag-and-release-and-upload@v1.4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          
-          # Use the version from the previous step
-          version: v${{ steps.get_version.outputs.ASSEMBLY_VERSION }}
-          
+          version: v${{ env.TIMESTAMP_VERSION }}          
           assets: '[ "suac.exe", "suac", "suag.exe" ]'
           overwrite: true
