@@ -18,5 +18,5 @@ jobs:
 
       - name: Build
         run: |
-          dotnet restore
+          dotnet restore -s nuget.org
           dotnet build -c release
