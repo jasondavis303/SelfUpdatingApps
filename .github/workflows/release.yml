@@ -18,9 +18,9 @@ jobs:
 
       - name: Build
         run: |
-          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
-          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
-          dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
+          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
+          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
+          dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
           dotnet VersionCreator.dll
 
       - name: Get version
@@ -31,22 +31,22 @@ jobs:
        
       - name: Build nuget
         run: |
-          dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o nuget
-          dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o nuget
+          dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
+          dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -p:PackageVersion=${{ steps.get_version.outputs.ASSEMBLY_VERSION }} -o .
+          dotnet nuget push "*.nupkg" --skip-duplicate --api-key ${{secrets.NUGET_KEY}}
 
           
 
-      #- run: |
-      #    cd publish
-      #    dir
+      - run: |
+          dir
 
-      #- name: Tag and Release
-      #  uses: jasondavis303/tag-and-release-and-upload@v1.4
-      #  with:
-      #    github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tag and Release
+        uses: jasondavis303/tag-and-release-and-upload@v1.4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           
           # Use the version from the previous step
-      #    version: v${{ steps.get_version.outputs.ASSEMBLY_VERSION }}
+          version: v${{ steps.get_version.outputs.ASSEMBLY_VERSION }}
           
-      #    assets: '[ "suac.exe", "suac", "suag.exe" ]'
-      #    overwrite: true
+          assets: '[ "suac.exe", "suac", "suag.exe" ]'
+          overwrite: true
