@@ -25,12 +25,12 @@ jobs:
 
       - name: Get version
         id: get_version
-        uses: jasondavis303/net-sdk-proj-file-version
+        uses: jasondavis303/net-sdk-proj-file-version@v1.0.1
         with:
           PROJ_FILE: version.txt
 
       - name: Tag and Release
-        uses: jasondavis303/tag-and-release-and-upload
+        uses: jasondavis303/tag-and-release-and-upload@1.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           
