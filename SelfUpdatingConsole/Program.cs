@@ -20,14 +20,41 @@ namespace SelfUpdatingApp
                 Console.WriteLine("Self Updating Console App");
                 Console.WriteLine();
 
+                int cursorTop = -1;
+                int cursorLeft = -1;
+                int maxLen = 0;
+                string lastStatus = null;
+                try
+                {
+                    cursorTop = Console.CursorTop;
+                    cursorLeft = Console.CursorLeft;
+                }
+                catch { }
+
                 IProgress<ProgressData> prog = new Progress<ProgressData>((p) =>
                 {
                     lock (_locker)
                     {
-                        Console.Write(p.Status);
+                        string status = p.Status;
                         if (p.Percent > 0)
-                            Console.Write(": {0}%", p.Percent);
-                        Console.WriteLine();
+                            status += $" {p.Percent}%";
+                        if (maxLen > status.Length)
+                            status += new string(' ', maxLen - status.Length);
+
+                        if (status != lastStatus)
+                        {
+                            bool setPosWorked = false;
+                            try 
+                            {
+                                Console.SetCursorPosition(cursorLeft, cursorTop);
+                                setPosWorked = true;
+                            }
+                            catch { }
+                            Console.WriteLine(status);
+                            lastStatus = status;
+                            if(setPosWorked)
+                                maxLen = Math.Max(maxLen, lastStatus.Length);
+                        }
                     }
                 });
 
