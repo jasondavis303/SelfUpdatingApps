@@ -15,6 +15,8 @@ namespace SelfUpdatingApp
             _opts = opts;
         }
 
+        public int ErrorCode { get; set; } = -1;
+
         private async void frmPackager_Load(object sender, EventArgs e)
         {
             try
@@ -29,14 +31,19 @@ namespace SelfUpdatingApp
                 });
 
                 await Packager.BuildPackageAsync(_opts, prog);
+                ErrorCode = 0;
             }
             catch (AggregateException ex)
             {
                 Program.ShowErrors(ex.InnerExceptions, false);
+                if (ex.HResult != 0)
+                    ErrorCode = ex.HResult;
             }
             catch (Exception ex)
             {
                 Program.ShowErrors(new Exception[] { ex }, false);
+                if (ex.HResult != 0)
+                    ErrorCode = ex.HResult;
             }
 
             Close();

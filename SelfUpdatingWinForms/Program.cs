@@ -17,7 +17,7 @@ namespace SelfUpdatingApp
         [STAThread]
         static int Main(string[] args)
         {
-            int ret = 0;
+            int ret = -1;
             bool consoleOnly = false;
 
             try
@@ -45,11 +45,14 @@ namespace SelfUpdatingApp
                         });
 
                         Packager.BuildPackageAsync(opts, prog).Wait();
+                        ret = 0;
                     }
                     else
                     {
                         EnableWin();
-                        Application.Run(new frmPackager(opts));
+                        using var frm = new frmPackager(opts);
+                        Application.Run(frm);
+                        ret = frm.ErrorCode;
                     }
                 });
 
@@ -57,7 +60,9 @@ namespace SelfUpdatingApp
                 parsed.WithParsed<CLOptions.InstallOptions>(opts =>
                 {
                     EnableWin();
-                    Application.Run(new frmInstaller(opts.Package, 0, true));
+                    using var frm = new frmInstaller(opts.Package, 0, true);
+                    Application.Run(frm);
+                    ret = frm.ErrorCode;
                 });
 
 
@@ -65,36 +70,39 @@ namespace SelfUpdatingApp
                 {
                     EnableWin();
                     string packageFile = Path2.DepoManifest(XmlData.Read(Path2.LocalManifest(opts.AppId)));
-                    Application.Run(new frmInstaller(packageFile, opts.ProcessId, false));
+                    using var frm = new frmInstaller(packageFile, opts.ProcessId, false);
+                    Application.Run(frm);
+                    ret = frm.ErrorCode;
                 });
 
 
                 parsed.WithParsed<CLOptions.UninstallOptions>(opts =>
                 {
                     EnableWin();
-                    Application.Run(new frmUninstaller(opts));
+                    using var frm = new frmUninstaller(opts);
+                    Application.Run(frm);
+                    ret = frm.ErrorCode;
                 });
-           
 
 
-                parsed.WithParsed<CLOptions.InstallMeOptions>(opts => SelfInstaller.InstallMe());
 
-
-                parsed.WithNotParsed<object>(opts =>
+                parsed.WithParsed<CLOptions.InstallMeOptions>(opts =>
                 {
-                    //Arguments error
-                    ret = -1;
+                    SelfInstaller.InstallMe();
+                    ret = 0;
                 });
             }
             catch (AggregateException ex)
             {
                 ShowErrors(ex.InnerExceptions, consoleOnly);
-                ret = ex.HResult == 0 ? -1 : ex.HResult;
+                if (ex.HResult != 0)
+                    ret = ex.HResult;
             }
             catch (Exception ex)
             {
                 ShowErrors(new Exception[] { ex }, consoleOnly);
-                ret = ex.HResult == 0 ? -1 : ex.HResult;
+                if (ex.HResult != 0)
+                    ret = ex.HResult;
             }
 
             return ret;
@@ -129,33 +137,5 @@ namespace SelfUpdatingApp
                 Console.WriteLine();
             }
         }
-
-        //static void Run(CLOptionsOld opts)
-        //{
-        //    switch (opts.Action)
-        //    {
-        //        case CLOptionsOld.Actions.PrintUsage:
-        //            MessageBox.Show(CLOptionsOld.Usage(), "Usage", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            break;
-
-        //        case CLOptionsOld.Actions.InstallMe:
-        //            SelfInstaller.InstallMe();
-        //            break;
-
-        //        case CLOptionsOld.Actions.Build:
-        //            Application.Run(new frmPackager(opts));
-        //            break;
-
-        //        case CLOptionsOld.Actions.Install:
-        //        case CLOptionsOld.Actions.Update:
-        //            Application.Run(new frmInstaller(opts));
-        //            break;
-
-        //        case CLOptionsOld.Actions.Uninstall:
-        //            Application.Run(new frmUninstaller(opts));
-        //            break;
-        //    }
-        //}
-
     }
 }

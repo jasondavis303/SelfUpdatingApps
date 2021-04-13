@@ -22,6 +22,8 @@ namespace SelfUpdatingApp
             _createShortcuts = createShortcuts;
         }
 
+        public int ErrorCode { get; set; } = -1;
+
         private async void frmInstaller_Load(object sender, EventArgs e)
         {
             try
@@ -49,19 +51,22 @@ namespace SelfUpdatingApp
                 if (!ret.Success)
                     throw ret.Error;
                 Process.Start(Path2.InstalledExe(XmlData.Read(Path2.LocalManifest(ret.Id))));
-
+                ErrorCode = 0;
             }
             catch (AggregateException ex)
             {
                 Program.ShowErrors(ex.InnerExceptions, false);
+                if (ex.HResult != 0)
+                    ErrorCode = ex.HResult;
             }
             catch (Exception ex)
             {
                 Program.ShowErrors(new Exception[] { ex }, false);
+                if (ex.HResult != 0)
+                    ErrorCode = ex.HResult;
             }
 
             Close();
-            Application.Exit();
         }
     }
 }
