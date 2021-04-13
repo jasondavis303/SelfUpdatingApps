@@ -15,6 +15,7 @@
     <Authors>jasondavis303</Authors>
     <Copyright>jasondavis303</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
