@@ -10,6 +10,8 @@ namespace SelfUpdatingApp
     {
         public static async Task BuildPackageAsync(CLOptions.BuildOptions opts, IProgress<ProgressData> progress = null)
         {
+            opts.SourceExe = Path.GetFullPath(opts.SourceExe);
+
             if (!opts.SourceExe.EndsWith(".exe", StringComparison.CurrentCultureIgnoreCase))
                 throw new Exception("The source-exe argument must be an executable file");
 
