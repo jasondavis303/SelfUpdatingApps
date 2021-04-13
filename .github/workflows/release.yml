@@ -19,7 +19,7 @@ jobs:
       - name: Set Version
         id: set_version
         run: |
-          Invoke-WebRequest -Uri https://github.com/jasondavis303/TimestampVersion/releases/download/v21.4.13.96/tsv.exe -OutFile tsv.exe
+          Invoke-WebRequest -Uri https://github.com/jasondavis303/TimestampVersion/releases/latest/download/tsv.exe -OutFile tsv.exe
           .\tsv.exe --xml-files SelfUpdatingConsole\SelfUpdatingConsole.csproj SelfUpdatingWinForms\SelfUpdatingWinForms.csproj --set-ov --verbose
 
      

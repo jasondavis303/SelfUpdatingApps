@@ -1,5 +1,18 @@
 [![release](https://github.com/jasondavis303/SelfUpdatingApps/actions/workflows/release.yml/badge.svg)](https://github.com/jasondavis303/SelfUpdatingApps/actions/workflows/release.yml)
 
+
+Nuget Windows Forms: https://www.nuget.org/packages/suag/
+
+Nuget Console: https://www.nuget.org/packages/suac/
+
+
+Windows Forms Exe: https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suag.exe 
+
+Windows Console Exe: https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suac.exe
+
+Linux Console Exe: https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suac
+
+
 <pre>
 Usage: suag.exe|suac.exe [verb] [options]
 
