@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,16 +11,18 @@ namespace SelfUpdatingApp
         readonly string _packageFile;
         readonly int _processId;
         readonly bool _createShortcuts;
+        readonly string _relaunchArgs;
 
         readonly object _locker = new object();
 
-        public frmInstaller(string packageFile, int processId, bool createShortcuts)
+        public frmInstaller(string packageFile, int processId, bool createShortcuts, string relaunchArgs)
         {
             InitializeComponent();
             pbImage.Image = Properties.Resources.install;
             _packageFile = packageFile;
             _processId = processId;
             _createShortcuts = createShortcuts;
+            _relaunchArgs = relaunchArgs;
         }
 
         public int ErrorCode { get; set; } = -1;
@@ -50,7 +53,18 @@ namespace SelfUpdatingApp
                 var ret = await Installer.InstallAsync(_packageFile, prog, _createShortcuts);
                 if (!ret.Success)
                     throw ret.Error;
-                Process.Start(Path2.InstalledExe(XmlData.Read(Path2.LocalManifest(ret.Id))));
+
+                string exePath = Path2.InstalledExe(XmlData.Read(Path2.LocalManifest(ret.Id)));
+                if (string.IsNullOrWhiteSpace(_relaunchArgs))
+                {
+                    Process.Start(exePath);
+                }
+                else
+                {
+                    string args = Encoding.UTF8.GetString(Convert.FromBase64String(_relaunchArgs));
+                    Process.Start(exePath, args);                    
+                }
+
                 ErrorCode = 0;
             }
             catch (AggregateException ex)

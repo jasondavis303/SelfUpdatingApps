@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SelfUpdatingApp
@@ -24,9 +25,30 @@ namespace SelfUpdatingApp
             }
         }
 
-        public static void Launch(string id)
+        public static void Launch(string id, string[] relaunchArgs = null)
         {
-            Process.Start(Path2.SelfUpdatingExe, $"update --app-id \"{id}\" --process-id {Process.GetCurrentProcess().Id}");
+            string args = $"update --app-id \"{id}\" --process-id {Process.GetCurrentProcess().Id}";
+            if(relaunchArgs != null && relaunchArgs.Length > 0)
+            {
+                string unencoded = null;
+                for(int i = 0; i < relaunchArgs.Length; i++)
+                {
+                    if(relaunchArgs[i].Contains(' '))
+                    {
+                        if (!relaunchArgs[i].StartsWith('"'))
+                            relaunchArgs[i] = '"' + relaunchArgs[i];
+                        if (!relaunchArgs[i].EndsWith('"'))
+                            relaunchArgs[i] += '"';
+                    }
+
+                    unencoded += relaunchArgs[i] + " ";
+                }
+                unencoded = unencoded.Trim();
+                string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(unencoded), Base64FormattingOptions.None);
+                args += $" --relaunch-args \"{encoded}\"";
+            }
+
+            Process.Start(Path2.SelfUpdatingExe, args);
             return;
         }
 

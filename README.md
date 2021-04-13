@@ -67,6 +67,8 @@ suag.exe|suac.exe update [options]
 
   --process-id    Wait for this process to close before updating
 
+  --relaunch-args Base64 encoded string of args to pass to the app after updating
+
 
 
 

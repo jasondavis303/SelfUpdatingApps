@@ -60,7 +60,7 @@ namespace SelfUpdatingApp
                 parsed.WithParsed<CLOptions.InstallOptions>(opts =>
                 {
                     EnableWin();
-                    using var frm = new frmInstaller(opts.Package, 0, true);
+                    using var frm = new frmInstaller(opts.Package, 0, true, null);
                     Application.Run(frm);
                     ret = frm.ErrorCode;
                 });
@@ -70,7 +70,7 @@ namespace SelfUpdatingApp
                 {
                     EnableWin();
                     string packageFile = Path2.DepoManifest(XmlData.Read(Path2.LocalManifest(opts.AppId)));
-                    using var frm = new frmInstaller(packageFile, opts.ProcessId, false);
+                    using var frm = new frmInstaller(packageFile, opts.ProcessId, false, opts.RelaunchArgs);
                     Application.Run(frm);
                     ret = frm.ErrorCode;
                 });

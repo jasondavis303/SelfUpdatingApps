@@ -47,7 +47,10 @@ namespace SelfUpdatingApp
             public string AppId { get; set; }
 
             [Option("process-id", HelpText = "Wait for this process to close before updating")]
-            public int ProcessId { get; set; }       
+            public int ProcessId { get; set; }
+
+            [Option("relaunch-args", HelpText ="Base64 encoded string of args to pass to the app after updating")]
+            public string RelaunchArgs { get; set; }
         }
 
         [Verb("uninstall")]

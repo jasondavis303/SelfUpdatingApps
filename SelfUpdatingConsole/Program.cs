@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace SelfUpdatingApp
 {
@@ -56,8 +57,16 @@ namespace SelfUpdatingApp
                     var updated = Installer.InstallAsync(Path2.DepoManifest(XmlData.Read(Path2.LocalManifest(opts.AppId))), prog, false).Result;
                     if (!updated.Success)
                         throw updated.Error;
-                    var updatedData = XmlData.Read(Path2.LocalManifest(updated.Id));
-                    Process.Start(Path2.InstalledExe(updatedData));
+                    string exePath = Path2.InstalledExe(XmlData.Read(Path2.LocalManifest(updated.Id)));
+                    if (string.IsNullOrWhiteSpace(opts.RelaunchArgs))
+                    {
+                        Process.Start(exePath);
+                    }
+                    else
+                    {
+                        string relaunchArgs = Encoding.UTF8.GetString(Convert.FromBase64String(opts.RelaunchArgs));
+                        Process.Start(exePath, relaunchArgs);
+                    }
                 });
 
 
