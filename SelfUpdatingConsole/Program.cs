@@ -15,6 +15,10 @@ namespace SelfUpdatingApp
 
             try
             {
+                Console.WriteLine();
+                Console.WriteLine("Self Updating Console App");
+                Console.WriteLine();
+
                 IProgress<ProgressData> prog = new Progress<ProgressData>((p) =>
                 {
                     lock (_locker)

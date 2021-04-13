@@ -22,6 +22,10 @@ namespace SelfUpdatingApp
 
             try
             {
+                Console.WriteLine();
+                Console.WriteLine("Self Updating GUI App");
+                Console.WriteLine();
+
                 var parsed = Parser.Default.ParseArguments<CLOptions.BuildOptions, CLOptions.InstallMeOptions, CLOptions.InstallOptions, CLOptions.UpdateOptions, CLOptions.UninstallOptions>(args);
 
                 parsed.WithParsed<CLOptions.BuildOptions>(opts =>
