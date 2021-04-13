@@ -14,7 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		NuGet.Config = NuGet.Config
 		README.md = README.md
-		tsv.exe = tsv.exe
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp_Console", "TestApp_Console\TestApp_Console.csproj", "{F6B493F1-9597-4FF5-8172-9D65FD46DBE4}"
