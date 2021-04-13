@@ -96,8 +96,10 @@ namespace SelfUpdatingApp
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Location = new System.Drawing.Point(100, 100);
             this.Name = "frmCheckForUpdates";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "SUAG Installer";
             this.Load += new System.EventHandler(this.frmCheckForUpdates_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
