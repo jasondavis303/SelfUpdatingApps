@@ -49,6 +49,8 @@ suag.exe|suac.exe build [options]
 
   --name          Friendly name. If not specified, it's derived from source-exe
 
+  --app-version   Set app version. If not specified, it's derived from DateTime.UtcNow
+
 
 
 

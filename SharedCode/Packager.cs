@@ -29,6 +29,8 @@ namespace SelfUpdatingApp
                     dt.Day,
                     (dt.Hour * 60) + dt.Minute
                 );
+            if (!string.IsNullOrWhiteSpace(opts.Version))
+                version = new Version(opts.Version);
 
             
             string inDir = Path.GetDirectoryName(opts.SourceExe);

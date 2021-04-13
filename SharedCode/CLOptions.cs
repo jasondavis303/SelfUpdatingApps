@@ -27,6 +27,9 @@ namespace SelfUpdatingApp
 
             [Option("name", HelpText = "Friendly name. If not specified, it's derived from source-exe")]
             public string Name { get; set; }
+
+            [Option("app-version", HelpText = "Set app version. If not specified, it's derived from DateTime.UtcNow")]
+            public string Version { get; set; }
         }
 
         [Verb("install")]
