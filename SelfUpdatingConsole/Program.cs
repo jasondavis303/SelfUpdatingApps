@@ -20,6 +20,14 @@ namespace SelfUpdatingApp
                 Console.WriteLine("Self Updating Console App");
                 Console.WriteLine();
 
+
+                string lastStatus = null;
+                int lastPercent = 0;
+                int cursorLeft = 0;
+                int cursorTop = Console.CursorTop;
+                bool wroteColon = false;
+                int lastLen = 0;
+
                 IProgress<ProgressData> prog = new Progress<ProgressData>((p) =>
                 {
                     lock (_locker)
@@ -31,7 +39,56 @@ namespace SelfUpdatingApp
                     }
                 });
 
+
+                try
+                {
+                    Console.SetCursorPosition(cursorLeft, cursorTop);
+
+                    //If that didn't throw, then we can do better console output
+
+                    prog = new Progress<ProgressData>((p) =>
+                    {
+                        lock (_locker)
+                        {
+                            if(p.Status != lastStatus)
+                            {
+                                if(lastLen > 0)
+                                {
+                                    Console.SetCursorPosition(0, cursorTop);
+                                    Console.Write(new string(' ', lastLen));
+                                }
+                                Console.SetCursorPosition(0, cursorTop);
+                                Console.Write(p.Status);
+                                lastStatus = p.Status;
+                                cursorLeft = Console.CursorLeft;
+                                wroteColon = false;
+                                lastPercent = 0;
+                                lastLen = Console.CursorLeft;
+                            }
+                            
+                            if(p.Percent > lastPercent)
+                            {
+                                if(!wroteColon)
+                                {
+                                    Console.Write(": ");
+                                    wroteColon = true;
+                                    cursorLeft = Console.CursorLeft;
+                                    lastLen = Console.CursorLeft;
+                                }
+
+                                Console.SetCursorPosition(cursorLeft, cursorTop);
+                                Console.Write($"{p.Percent}%");
+                                lastLen = Console.CursorLeft;
+                                lastPercent = p.Percent;
+                            }
+
+                        }
+                    });
+                }
+                catch { }
+
                 
+
                 var parsed = Parser.Default.ParseArguments<CLOptions.BuildOptions, CLOptions.InstallMeOptions, CLOptions.InstallOptions, CLOptions.UpdateOptions, CLOptions.UninstallOptions>(args);
                 
 
