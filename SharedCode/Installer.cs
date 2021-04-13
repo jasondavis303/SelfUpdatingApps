@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace SelfUpdatingApp
 {
-    public static class Installer
+    public static partial class Installer
     {
         public static async Task<bool> IsUpdateAvailableAsync(string id)
         {
             try
             {
+                Console.WriteLine("Checking for updates");
                 var localData = XmlData.Read(Path2.LocalManifest(id));
                 var serverData = await XmlData.ReadAsync(Path2.DepoManifest(localData)).ConfigureAwait(false);
                 return serverData.Version > localData.Version;
