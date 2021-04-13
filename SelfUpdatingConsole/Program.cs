@@ -130,7 +130,12 @@ namespace SelfUpdatingApp
                 parsed.WithParsed<CLOptions.UninstallOptions>(opts => Uninstaller.UninstallAsync(opts.AppId, prog).Wait());
 
 
-                parsed.WithParsed<CLOptions.InstallMeOptions>(opts => SelfInstaller.InstallMe());
+                parsed.WithParsed<CLOptions.InstallMeOptions>(opts =>
+                {
+                    SelfInstaller.InstallMe(opts);
+                    Console.WriteLine("SAUC Installed");
+                    Console.ReadLine();
+                });
 
 
                 parsed.WithNotParsed<object>(opts =>

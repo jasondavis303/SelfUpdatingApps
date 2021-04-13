@@ -5,7 +5,11 @@ namespace SelfUpdatingApp
     class CLOptions
     {
         [Verb("install-me", isDefault: true)]
-        public class InstallMeOptions { }
+        public class InstallMeOptions 
+        {
+            [Option("process-id", HelpText = "Wait for this process to close before updating")]
+            public int ProcessId { get; set; }
+        }
 
         [Verb("build")]
         public class BuildOptions

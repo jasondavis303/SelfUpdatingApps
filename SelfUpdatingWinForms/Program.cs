@@ -88,7 +88,8 @@ namespace SelfUpdatingApp
 
                 parsed.WithParsed<CLOptions.InstallMeOptions>(opts =>
                 {
-                    SelfInstaller.InstallMe();
+                    if(SelfInstaller.InstallMe(opts))
+                        MessageBox.Show("SUAG Installed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ret = 0;
                 });
             }

@@ -18,9 +18,9 @@ Usage: suag.exe|suac.exe [verb] [options]
 
 Verbs:
 
-  build
-
   install-me    (Default Verb)
+
+  build
 
   install
 
@@ -31,6 +31,13 @@ Verbs:
   help          Display more information on a specific command.
 
   version       Display version information.
+
+
+
+
+suag.exe|suac.exe install-me
+
+  --process-id    Wait for this process to close before installing
 
 
 

@@ -62,21 +62,12 @@ namespace SelfUpdatingApp
         /// Directory of installed suac.exe & suag.exe
         /// </summary>
         public static string SelfUpdatingBin =>  Directory.CreateDirectory(Path.Combine(RootPath, "bin")).FullName;
-            
+
 
         /// <summary>
         /// Location of installed suag.exe & suac.exe
         /// </summary>
-        public static string SelfUpdatingExe
-        {
-            get
-            {
-                string filename = ThisApp.Handler;
-                if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-                    filename += ".exe";
-                return Path.Combine(SelfUpdatingBin, filename);
-            }
-        }
+        public static string SelfUpdatingExe => Path.Combine(SelfUpdatingBin, ThisApp.DestExe);
         
 
         public static string DesktopLinkPath(string name) => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), name + ".lnk");

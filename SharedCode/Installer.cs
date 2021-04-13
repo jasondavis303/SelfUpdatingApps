@@ -126,16 +126,10 @@ namespace SelfUpdatingApp
                     string shortcutFile = Path2.DesktopLinkPath(serverData.Name);
                     if (createShortcuts || File.Exists(shortcutFile))
                         Shortcut.Create(shortcutFile, Path2.InstalledExe(serverData));
-
-                    //Create start menu shortcut
-
-                    //Create pinned to start shortcut
-
-
-                    //Update if pinned to taskbar
-                    shortcutFile = Path2.TaskBarShortcutPath(serverData.Name);
-                    if (File.Exists(shortcutFile))
-                        Shortcut.Create(shortcutFile, Path2.InstalledExe(serverData));
+                }
+                else
+                {
+                    Process.Start("chmod", $"+x \"{Path2.InstalledExe(serverData)}\"");
                 }
 
                 //Success
