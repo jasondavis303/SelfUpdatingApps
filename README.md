@@ -39,6 +39,8 @@ suag.exe|suac.exe install-me
 
   --process-id    Wait for this process to close before installing
 
+  --no-gui        Silent install (for scheduled updates)
+
 
 
 

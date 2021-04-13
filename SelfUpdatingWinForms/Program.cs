@@ -90,7 +90,8 @@ namespace SelfUpdatingApp
                 {
                     EnableWin();
                     if(SelfInstaller.InstallMe(opts))
-                        MessageBox.Show("SUAG Installed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if(!opts.NoGui)
+                            MessageBox.Show("SUAG Installed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ret = 0;
                 });
             }

@@ -9,6 +9,9 @@ namespace SelfUpdatingApp
         {
             [Option("process-id", HelpText = "Wait for this process to close before updating")]
             public int ProcessId { get; set; }
+
+            [Option("no-gui", HelpText = "Silent install (for scheduled updates)")]
+            public bool NoGui { get; set; }
         }
 
         [Verb("build")]
