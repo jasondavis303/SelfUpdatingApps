@@ -19,23 +19,24 @@ jobs:
       - name: Set Version
         id: set_version
         run: |
-          .\tsv.exe --xml-files SelfUpdatingConsole\SelfUpdatingConsole.csproj SelfUpdatingWinForms\SelfUpdatingWinForms.csproj --set-ov
+          Invoke-WebRequest -Uri https://github.com/jasondavis303/TimestampVersion/releases/download/v21.4.13.96/tsv.exe -OutFile tsv2.exe
+          .\tsv2.exe --xml-files SelfUpdatingConsole\SelfUpdatingConsole.csproj SelfUpdatingWinForms\SelfUpdatingWinForms.csproj --set-ov --verbose
 
      
-      - name: Build
-        run: |
-          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
-          dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
-          dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
-          dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -o .
-          dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -o .
-          dotnet nuget push "*.nupkg" --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json
+      #- name: Build
+      #  run: |
+      #    dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
+      #    dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
+      #    dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o .
+      #    dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -o .
+      #    dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -o .
+      #    dotnet nuget push "*.nupkg" --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json
 
 
-      - name: Tag and Release
-        uses: jasondavis303/tag-and-release-and-upload@v1.4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          version: v${{ steps.set_version.outputs.TIMESTAMP_VERSION }}          
-          assets: '[ "suac.exe", "suac", "suag.exe" ]'
-          overwrite: true
+      #- name: Tag and Release
+      #  uses: jasondavis303/tag-and-release-and-upload@v1.4
+      #  with:
+      #    github-token: ${{ secrets.GITHUB_TOKEN }}
+      #    version: v${{ steps.set_version.outputs.TIMESTAMP_VERSION }}          
+      #    assets: '[ "suac.exe", "suac", "suag.exe" ]'
+      #    overwrite: true
