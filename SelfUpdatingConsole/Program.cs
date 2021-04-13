@@ -18,8 +18,7 @@ namespace SelfUpdatingApp
             {
                 Console.WriteLine();
                 Console.WriteLine("Self Updating Console App");
-                Console.WriteLine();
-
+                
 
                 string lastStatus = null;
                 int lastPercent = 0;
@@ -42,6 +41,7 @@ namespace SelfUpdatingApp
 
                 try
                 {
+                    Console.WriteLine();
                     Console.SetCursorPosition(cursorLeft, cursorTop);
 
                     //If that didn't throw, then we can do better console output
