@@ -12,10 +12,18 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/jasondavis303/SelfUpdatingApps</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps</RepositoryUrl>
-    <Authors>jasondavis303</Authors>
+    <Authors>Jason Davis</Authors>
     <Copyright>jasondavis303</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.0.0.1</Version>
+    <Description>Library for SelfUpdatingConsole</Description>
+    <Company>jasondavis303</Company>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Download the App Manager:
+
+Windows: https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suac.exe
+
+Linux: https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suac</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

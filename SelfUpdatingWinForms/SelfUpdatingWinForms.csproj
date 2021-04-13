@@ -11,11 +11,16 @@
     <StartupObject>SelfUpdatingApp.Program</StartupObject>
     <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps</RepositoryUrl>
     <PackageProjectUrl>https://github.com/jasondavis303/SelfUpdatingApps</PackageProjectUrl>
-    <Authors>jasondavis303</Authors>
+    <Authors>Jason Davis</Authors>
     <Company>jasondavis303</Company>
     <Copyright>jasondavis303</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.0.0.1</Version>
+    <Description>Library for SelfUpdatingWinForms</Description>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Download the App Manager:
+
+https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suag.exe</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
