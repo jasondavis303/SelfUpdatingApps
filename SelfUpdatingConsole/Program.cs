@@ -27,7 +27,7 @@ namespace SelfUpdatingApp
                 });
 
                 
-                var parsed = Parser.Default.ParseArguments<CLOptions.BuildOptions, CLOptions.InstallMeOptions, CLOptions.UpdateOptions, CLOptions.UninstallOptions>(args);
+                var parsed = Parser.Default.ParseArguments<CLOptions.BuildOptions, CLOptions.InstallMeOptions, CLOptions.InstallOptions, CLOptions.UpdateOptions, CLOptions.UninstallOptions>(args);
                 
 
                 parsed.WithParsed<CLOptions.BuildOptions>(opts => Packager.BuildPackageAsync(opts, prog).Wait());
