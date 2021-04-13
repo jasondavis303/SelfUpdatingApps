@@ -25,7 +25,10 @@ namespace SelfUpdatingApp
                 File.Copy(srcFile, tmpFile, true);
                 if(Environment.OSVersion.Platform != PlatformID.Win32NT)
                     Process.Start("chmod", $"+x \"{tmpFile}\"");
-                Process.Start(tmpFile, $"install-me --process-id {Process.GetCurrentProcess().Id}");
+                string args = $"install-me --process-id {Process.GetCurrentProcess().Id}";
+                if (opts.NoGui)
+                    args += " --no-gui";
+                Process.Start(tmpFile, args);
                 return false;
             }
 
