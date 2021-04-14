@@ -36,12 +36,6 @@ jobs:
 
 
       - name: Tag and Release
-        uses: jasondavis303/tag-and-release-and-upload@v1.4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          version: v${{ steps.set_version.outputs.TIMESTAMP_VERSION }}          
-          assets: '[ "suac.exe", "suac", "suag.exe" ]'
-          overwrite: true
         run: |
           Invoke-WebRequest -Uri https://github.com/jasondavis303/TagAndRelease/releases/latest/download/tar.exe -OutFile tar.exe
           .\tar.exe --owner jasondavis303 --repo-name SelfUpdatingApps --github-token ${{ secrets.GITHUB_TOKEN }} --set-version ${{ steps.set_version.outputs.TIMESTAMP_VERSION }} --assets publish\suac publish\suac.exe publish\suag.exe --verbose
