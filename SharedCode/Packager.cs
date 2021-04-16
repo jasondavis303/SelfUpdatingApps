@@ -18,6 +18,8 @@ namespace SelfUpdatingApp
             if (!File.Exists(opts.SourceExe))
                 throw new FileNotFoundException("The executable file was not found", opts.SourceExe);
 
+            if (string.IsNullOrWhiteSpace(opts.Name))
+                opts.Name = Path.GetFileNameWithoutExtension(opts.SourceExe);
 
             //Get info
             progress?.Report(new ProgressData("Gathering info"));
