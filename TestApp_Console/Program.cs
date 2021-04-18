@@ -39,6 +39,7 @@ namespace TestApp_Console
             bool update = await SelfUpdatingApp.Installer.IsUpdateAvailableAsync(APP_ID).ConfigureAwait(false);
             Console.WriteLine("Update Available: {0}", update);
 
+
             return update;
         }
     }
