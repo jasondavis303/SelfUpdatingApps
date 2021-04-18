@@ -18,7 +18,7 @@ namespace SelfUpdatingApp
         {
             if (IsHTTPUrl(src))
             {
-                var request = WebRequest.CreateHttp(src);
+                var request = WebRequest.Create(src);
                 return request.GetResponseAsync();
             }
             else if (IsFTPUrl(src))
@@ -34,7 +34,7 @@ namespace SelfUpdatingApp
             }
         }
 
-        public static FileStream OpenAsyncRead(string filename) => new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, Constants.BUFFER_SIZE, true);
+        public static FileStream OpenAsyncRead(string filename) => new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, Constants.BUFFER_SIZE);
        
         public static FileStream OpenAsyncRead(this FileInfo info) => OpenAsyncRead(info.FullName);
 
