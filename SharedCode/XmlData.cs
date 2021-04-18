@@ -41,7 +41,8 @@ namespace SelfUpdatingApp
             }
             else
             {
-                using var stream = StreamHelper.OpenAsyncRead(url);
+                //using var stream = StreamHelper.OpenAsyncRead(url);
+                using var stream = File.OpenRead(url);
                 doc = await XDocument.LoadAsync(stream, LoadOptions.None, default).ConfigureAwait(false);
             }
 

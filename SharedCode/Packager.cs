@@ -72,7 +72,8 @@ namespace SelfUpdatingApp
                 using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create);
                 foreach (var file in sourceFiles)
                 {
-                    using var fileStream = file.OpenAsyncRead();
+                    //using var fileStream = file.OpenAsyncRead();
+                    using var fileStream = file.OpenRead();
                     string entryName = file.FullName[inDir.Length..];
                     using var entryStream = archive.CreateEntry(entryName, CompressionLevel.Optimal).Open();
                     long readFromFile = 0;

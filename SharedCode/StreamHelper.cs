@@ -34,9 +34,9 @@ namespace SelfUpdatingApp
             }
         }
 
-        public static FileStream OpenAsyncRead(string filename) => new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, Constants.BUFFER_SIZE);
+        //public static FileStream OpenAsyncRead(string filename) => new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, Constants.BUFFER_SIZE);
        
-        public static FileStream OpenAsyncRead(this FileInfo info) => OpenAsyncRead(info.FullName);
+        //public static FileStream OpenAsyncRead(this FileInfo info) => OpenAsyncRead(info.FullName);
 
         public static FileStream CreateAsyncWrite(string filename) => File.Create(filename, Constants.BUFFER_SIZE, FileOptions.Asynchronous);
     }
