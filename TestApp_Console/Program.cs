@@ -21,9 +21,15 @@ namespace TestApp_Console
             }
 
             Console.WriteLine();
-            
+
             if (launch)
+            {
                 SelfUpdatingApp.Installer.Launch(APP_ID);
+                return;
+            }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.Read();
         }
 
         static async Task<bool> Run()

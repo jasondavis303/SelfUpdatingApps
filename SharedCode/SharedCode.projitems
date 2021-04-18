@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Shortcut.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StreamHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Uninstaller.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WaitProgress.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlData.cs" />
   </ItemGroup>
 </Project>

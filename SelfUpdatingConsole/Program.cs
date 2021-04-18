@@ -16,10 +16,6 @@ namespace SelfUpdatingApp
 
             try
             {
-                Console.WriteLine();
-                Console.WriteLine("Self Updating Console App");
-                Console.WriteLine();
-
                 int cursorTop = -1;
                 int cursorLeft = -1;
                 int maxLen = 0;
@@ -31,7 +27,7 @@ namespace SelfUpdatingApp
                 }
                 catch { }
 
-                IProgress<ProgressData> prog = new Progress<ProgressData>((p) =>
+                IProgress<ProgressData> prog = new WaitProgress<ProgressData>((p) =>
                 {
                     lock (_locker)
                     {

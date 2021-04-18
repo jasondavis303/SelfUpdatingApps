@@ -31,7 +31,7 @@ namespace SelfUpdatingApp
         {
             try
             {
-                IProgress<ProgressData> prog = new Progress<ProgressData>((p) =>
+                IProgress<ProgressData> prog = new WaitProgress<ProgressData>((p) =>
                 {
                     lock (_locker)
                     {

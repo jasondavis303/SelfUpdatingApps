@@ -34,9 +34,26 @@ namespace SelfUpdatingApp
             }
         }
 
-        //public static FileStream OpenAsyncRead(string filename) => new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, Constants.BUFFER_SIZE);
-       
-        //public static FileStream OpenAsyncRead(this FileInfo info) => OpenAsyncRead(info.FullName);
+        public static FileStream OpenAsyncRead(string filename)
+        {
+            var ret = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, Constants.BUFFER_SIZE, true);
+            
+            try
+            {
+                var buffer = new Memory<byte>(new byte[1]);
+                _ = ret.ReadAsync(buffer).Result;
+                ret.Seek(0, SeekOrigin.Begin);
+            }
+            catch
+            {
+                ret.Dispose();
+                ret = File.OpenRead(filename);
+            }
+
+            return ret;
+        }
+
+        public static FileStream OpenAsyncRead(this FileInfo info) => OpenAsyncRead(info.FullName);
 
         public static FileStream CreateAsyncWrite(string filename) => File.Create(filename, Constants.BUFFER_SIZE, FileOptions.Asynchronous);
     }

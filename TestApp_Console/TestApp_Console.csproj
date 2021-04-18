@@ -13,5 +13,4 @@
   <ItemGroup>
     <ProjectReference Include="..\SelfUpdatingConsole\SelfUpdatingConsole.csproj" />
   </ItemGroup>
-
 </Project>

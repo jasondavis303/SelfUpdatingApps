@@ -112,8 +112,7 @@ namespace SelfUpdatingApp
                 }
                 else
                 {
-                    //using var source = StreamHelper.OpenAsyncRead(zipSrc);
-                    using var source = File.OpenRead(zipSrc);
+                    using var source = StreamHelper.OpenAsyncRead(zipSrc);
                     await UnzipPackage(source, Path2.InstalledDirectory(serverData.Id), status, progress).ConfigureAwait(false);
                 }
                 
