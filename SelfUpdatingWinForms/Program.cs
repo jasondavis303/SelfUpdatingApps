@@ -84,7 +84,7 @@ namespace SelfUpdatingApp
                 parsed.WithParsed<CLOptions.InstallMeOptions>(opts =>
                 {
                     EnableWin();
-                    if(SelfInstaller.InstallMe(opts))
+                    if(Manager.InstallMe(opts))
                         if(!opts.NoGui)
                             MessageBox.Show("SUAG Installed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ret = 0;

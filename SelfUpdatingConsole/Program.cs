@@ -102,7 +102,7 @@ namespace SelfUpdatingApp
 
                 parsed.WithParsed<CLOptions.InstallMeOptions>(opts =>
                 {
-                    if (SelfInstaller.InstallMe(opts))
+                    if (Manager.InstallMe(opts))
                     {
                         Console.WriteLine("SAUC Installed");
                         if(!opts.NoGui)

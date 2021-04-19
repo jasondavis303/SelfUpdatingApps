@@ -19,7 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Path2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProgressData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RegistryEntries.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SelfInstaller.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Manager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shortcut.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StreamHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Uninstaller.cs" />

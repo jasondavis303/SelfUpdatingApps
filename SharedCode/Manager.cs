@@ -2,13 +2,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Reflection;
 
 namespace SelfUpdatingApp
 {
-    static class SelfInstaller
+    public static class Manager
     {
-        public static bool InstallMe(CLOptions.InstallMeOptions opts)
+        internal static bool InstallMe(CLOptions.InstallMeOptions opts)
         {
             try
             {
@@ -38,7 +37,10 @@ namespace SelfUpdatingApp
             return true;
         }
 
-        static void InstallNewest()
+        /// <summary>
+        /// Installs the newest SUAG or SUAC executable. This does not update an app package
+        /// </summary>
+        public static void InstallNewest()
         {
             string tmpFile = Path.GetTempFileName();
 
