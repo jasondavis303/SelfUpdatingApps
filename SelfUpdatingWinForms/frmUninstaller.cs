@@ -6,7 +6,6 @@ namespace SelfUpdatingApp
     partial class frmUninstaller : Form
     {
         readonly CLOptions.UninstallOptions _opts;
-        readonly object _locker = new object();
 
         public frmUninstaller(CLOptions.UninstallOptions opts)
         {
@@ -21,16 +20,14 @@ namespace SelfUpdatingApp
         {
             try
             {
-                IProgress<ProgressData> prog = new WaitProgress<ProgressData>((p) =>
+                WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>((p) =>
                 {
-                    lock (_locker)
-                    {
-                        lblStatus.Text = p.Status;
-                        pbProgress.Value = p.Percent;
-                    }
+                    lblStatus.Text = p.Status;
+                    pbProgress.Value = p.Percent;
                 });
 
                 await Uninstaller.UninstallAsync(_opts.AppId, prog);
+                await prog.WaitUntilDoneAsync();
                 ErrorCode = 0;
             }
             catch (AggregateException ex)

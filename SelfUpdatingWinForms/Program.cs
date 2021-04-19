@@ -8,9 +8,6 @@ namespace SelfUpdatingApp
 {
     static class Program
     {
-        static readonly object _locker = new object();
-
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -33,18 +30,16 @@ namespace SelfUpdatingApp
                     consoleOnly = opts.ConsoleOnly;
                     if (consoleOnly)
                     {
-                        IProgress<ProgressData> prog = new WaitProgress<ProgressData>((p) =>
+                        WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
                         {
-                            lock (_locker)
-                            {
-                                Console.Write(p.Status);
-                                if (p.Percent > 0)
-                                    Console.Write(": {0}%", p.Percent);
-                                Console.WriteLine();
-                            }
+                            Console.Write(p.Status);
+                            if (p.Percent > 0)
+                                Console.Write(": {0}%", p.Percent);
+                            Console.WriteLine();
                         });
 
                         Packager.BuildPackageAsync(opts, prog).Wait();
+                        prog.WaitUntilDone();
                         ret = 0;
                     }
                     else

@@ -13,8 +13,6 @@ namespace SelfUpdatingApp
         readonly bool _createShortcuts;
         readonly string _relaunchArgs;
 
-        readonly object _locker = new object();
-
         public frmInstaller(string packageFile, int processId, bool createShortcuts, string relaunchArgs)
         {
             InitializeComponent();
@@ -31,26 +29,24 @@ namespace SelfUpdatingApp
         {
             try
             {
-                IProgress<ProgressData> prog = new WaitProgress<ProgressData>((p) =>
+                WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
                 {
-                    lock (_locker)
-                    {
-                        lblStatus.Text = p.Status;
-                        pbProgress.Value = p.Percent;
-                    }
+                    lblStatus.Text = p.Status;
+                    pbProgress.Value = p.Percent;
                 });
 
                 if(_processId > 0)
                 {
                     await Task.Run(() =>
                     {
-                        prog.Report(new ProgressData("Waiting for previous app to close"));
+                        ((IProgress<ProgressData>)prog).Report(new ProgressData("Waiting for previous app to close"));
                         try { Process.GetProcessById(_processId).WaitForExit(); }
                         catch { }
                     });
                 }
 
                 var ret = await Installer.InstallAsync(_packageFile, prog, _createShortcuts);
+                await prog.WaitUntilDoneAsync();
                 if (!ret.Success)
                     throw ret.Error;
 

@@ -6,7 +6,6 @@ namespace SelfUpdatingApp
     partial class frmPackager : Form
     {
         readonly CLOptions.BuildOptions _opts;
-        readonly object _locker = new object();
 
         public frmPackager(CLOptions.BuildOptions opts)
         {
@@ -21,16 +20,14 @@ namespace SelfUpdatingApp
         {
             try
             {
-                IProgress<ProgressData> prog = new WaitProgress<ProgressData>((p) =>
+                WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
                 {
-                    lock (_locker)
-                    {
-                        lblStatus.Text = p.Status;
-                        pbProgress.Value = p.Percent;
-                    }
+                    lblStatus.Text = p.Status;
+                    pbProgress.Value = p.Percent;
                 });
 
                 await Packager.BuildPackageAsync(_opts, prog);
+                await prog.WaitUntilDoneAsync();
                 ErrorCode = 0;
             }
             catch (AggregateException ex)
