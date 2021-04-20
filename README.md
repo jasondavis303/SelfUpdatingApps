@@ -54,13 +54,13 @@ suag.exe|suac.exe build [options]
 
   --depo          Required.
 
-  --no-gui        When part of CI/CD, output build progress to the console
-
   --name          Friendly name. If not specified, it's derived from source-exe
 
   --app-version   Set app version. If not specified, it's derived from DateTime.UtcNow
 
+  --force-suag    Force output suag instead of suac. Useful for command line builds with no gui
 
+  
 
 
 suag.exe|suac.exe install [options]

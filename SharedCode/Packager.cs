@@ -12,8 +12,8 @@ namespace SelfUpdatingApp
         {
             opts.SourceExe = Path.GetFullPath(opts.SourceExe);
 
-            if (!opts.SourceExe.EndsWith(".exe", StringComparison.CurrentCultureIgnoreCase))
-                throw new Exception("The source-exe argument must be an executable file");
+            //if (!opts.SourceExe.EndsWith(".exe", StringComparison.CurrentCultureIgnoreCase))
+            //    throw new Exception("The source-exe argument must be an executable file");
 
             if (!File.Exists(opts.SourceExe))
                 throw new FileNotFoundException("The executable file was not found", opts.SourceExe);
@@ -48,6 +48,13 @@ namespace SelfUpdatingApp
             string zipFile = Path.Combine(opts.TargetDir, "packages", opts.AppId + ".zip");
             string friendlyFile = Path.Combine(opts.TargetDir, opts.Name + ThisApp.Extension);
             string msg = $"Building v{version}";
+
+            if(opts.ForceSUAG && ThisApp.Extension == ".suac")
+            {
+                xmlFile = Path.ChangeExtension(xmlFile, ".suag");
+                friendlyFile = Path.ChangeExtension(friendlyFile, ".suag");
+            }
+
 
 
             //Build the xml

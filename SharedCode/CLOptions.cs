@@ -28,15 +28,15 @@ namespace SelfUpdatingApp
             
             [Option("depo", Required = true)]
             public string Depo { get; set; }
-            
-            [Option("no-gui", HelpText = "When part of CI/CD, output build progress to the console")]
-            public bool ConsoleOnly { get; set; }
 
             [Option("name", HelpText = "Friendly name. If not specified, it's derived from source-exe")]
             public string Name { get; set; }
 
             [Option("app-version", HelpText = "Set app version. If not specified, it's derived from DateTime.UtcNow")]
             public string Version { get; set; }
+
+            [Option("force-suag", HelpText = "Force output suag instead of suac. Useful for command line builds with no gui")]
+            public bool ForceSUAG { get; set; }
         }
 
         [Verb("install")]

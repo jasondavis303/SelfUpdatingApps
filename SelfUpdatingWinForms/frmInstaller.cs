@@ -29,7 +29,7 @@ namespace SelfUpdatingApp
         {
             try
             {
-                WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
+                using WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
                 {
                     lblStatus.Text = p.Status;
                     pbProgress.Value = p.Percent;
@@ -65,13 +65,13 @@ namespace SelfUpdatingApp
             }
             catch (AggregateException ex)
             {
-                Program.ShowErrors(ex.InnerExceptions, false);
+                Program.ShowErrors(ex.InnerExceptions);
                 if (ex.HResult != 0)
                     ErrorCode = ex.HResult;
             }
             catch (Exception ex)
             {
-                Program.ShowErrors(new Exception[] { ex }, false);
+                Program.ShowErrors(new Exception[] { ex });
                 if (ex.HResult != 0)
                     ErrorCode = ex.HResult;
             }
