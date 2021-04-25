@@ -15,7 +15,9 @@ namespace SelfUpdatingApp
         {
             int ret = -1;
 
+#if !NETFX
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

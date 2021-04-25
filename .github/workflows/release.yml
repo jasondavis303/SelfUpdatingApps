@@ -28,8 +28,8 @@ jobs:
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingConsole\SelfUpdatingConsole.csproj -r linux-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
           dotnet publish SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -r win-x64 -p:PublishSingleFile=true --no-self-contained -c release -o publish
-          dotnet pack SelfUpdatingConsole\SelfUpdatingConsole.csproj -c release -o nuget
-          dotnet pack SelfUpdatingWinForms\SelfUpdatingWinForms.csproj -c release -o nuget
+          dotnet pack SelfUpdatingConsoleLib\SelfUpdatingConsoleLib.csproj -c release -o nuget
+          dotnet pack SelfUpdatingWinFormsLib\SelfUpdatingWinFormsLib.csproj -c release -o nuget
           dotnet nuget push "nuget\*.nupkg" --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json
           Invoke-WebRequest -Uri https://github.com/jasondavis303/s3u/releases/latest/download/s3u.exe -OutFile s3u.exe
           .\s3u.exe --endpoint ${{ secrets.S3_ENDPOINT }} --access-key ${{ secrets.S3_KEY_ID }} --access-secret ${{ secrets.S3_SECRET }} --source publish --bucket ${{ secrets.S3_BUCKET }} --target suadepo/bin --overwrite --verbose

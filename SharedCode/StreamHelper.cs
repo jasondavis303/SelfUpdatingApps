@@ -40,8 +40,8 @@ namespace SelfUpdatingApp
             
             try
             {
-                var buffer = new Memory<byte>(new byte[1]);
-                _ = ret.ReadAsync(buffer).Result;
+                var buffer = new byte[1];
+                _ = ret.ReadAsync(buffer, 0, 1).Result;
                 ret.Seek(0, SeekOrigin.Begin);
             }
             catch

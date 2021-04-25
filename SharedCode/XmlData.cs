@@ -37,12 +37,20 @@ namespace SelfUpdatingApp
             {
                 using var response = await StreamHelper.GetWebResponseAsync(url).ConfigureAwait(false);
                 using var stream = response.GetResponseStream();
+#if NET || NETSTANDARD2_0
+                doc = XDocument.Load(stream, LoadOptions.None);       
+#else
                 doc = await XDocument.LoadAsync(stream, LoadOptions.None, default).ConfigureAwait(false);
+#endif
             }
             else
             {
                 using var stream = StreamHelper.OpenAsyncRead(url);
+#if NET || NETSTANDARD2_0
+                doc = XDocument.Load(stream, LoadOptions.None);
+#else
                 doc = await XDocument.LoadAsync(stream, LoadOptions.None, default).ConfigureAwait(false);
+#endif
             }
 
             return ReadDoc(doc);

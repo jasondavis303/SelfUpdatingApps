@@ -16,10 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp_Console", "TestApp_Console\TestApp_Console.csproj", "{F6B493F1-9597-4FF5-8172-9D65FD46DBE4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp_WinForms", "TestApp_WinForms\TestApp_WinForms.csproj", "{549871E4-F514-48F3-9608-DAE02AF0D14E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{01CF28FF-B463-44DF-A846-3697E87A642C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{44A0B144-CC41-4F0F-9E0B-61F70FCB55AA}"
@@ -27,10 +23,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfUpdatingConsoleLib", "SelfUpdatingConsoleLib\SelfUpdatingConsoleLib.csproj", "{208BDA4B-908A-4A30-9F5A-1C68EA57CE51}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedAppCode", "SharedAppCode\SharedAppCode.shproj", "{17D4753D-A348-46B8-BC6F-EE239775FFEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfUpdatingWinFormsLib", "SelfUpdatingWinFormsLib\SelfUpdatingWinFormsLib.csproj", "{A203C1B6-DFDD-49ED-9FD1-D8E50F1BFBD3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharedAppCode\SharedAppCode.projitems*{17d4753d-a348-46b8-bc6f-ee239775ffea}*SharedItemsImports = 13
+		SharedCode\SharedCode.projitems*{208bda4b-908a-4a30-9f5a-1c68ea57ce51}*SharedItemsImports = 5
 		SharedCode\SharedCode.projitems*{78478b50-104e-4a2d-82f5-5b19129be5c8}*SharedItemsImports = 13
+		SharedAppCode\SharedAppCode.projitems*{7b5f1919-83c8-4cff-bc5d-2870752a0939}*SharedItemsImports = 5
 		SharedCode\SharedCode.projitems*{7b5f1919-83c8-4cff-bc5d-2870752a0939}*SharedItemsImports = 5
+		SharedCode\SharedCode.projitems*{a203c1b6-dfdd-49ed-9fd1-d8e50f1bfbd3}*SharedItemsImports = 5
+		SharedAppCode\SharedAppCode.projitems*{a7adf73f-c7bb-4cff-85c5-e0a2971032a2}*SharedItemsImports = 5
 		SharedCode\SharedCode.projitems*{a7adf73f-c7bb-4cff-85c5-e0a2971032a2}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,14 +53,14 @@ Global
 		{A7ADF73F-C7BB-4CFF-85C5-E0A2971032A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7ADF73F-C7BB-4CFF-85C5-E0A2971032A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7ADF73F-C7BB-4CFF-85C5-E0A2971032A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6B493F1-9597-4FF5-8172-9D65FD46DBE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6B493F1-9597-4FF5-8172-9D65FD46DBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6B493F1-9597-4FF5-8172-9D65FD46DBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6B493F1-9597-4FF5-8172-9D65FD46DBE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{549871E4-F514-48F3-9608-DAE02AF0D14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{549871E4-F514-48F3-9608-DAE02AF0D14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{549871E4-F514-48F3-9608-DAE02AF0D14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{549871E4-F514-48F3-9608-DAE02AF0D14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{208BDA4B-908A-4A30-9F5A-1C68EA57CE51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{208BDA4B-908A-4A30-9F5A-1C68EA57CE51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{208BDA4B-908A-4A30-9F5A-1C68EA57CE51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{208BDA4B-908A-4A30-9F5A-1C68EA57CE51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A203C1B6-DFDD-49ED-9FD1-D8E50F1BFBD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A203C1B6-DFDD-49ED-9FD1-D8E50F1BFBD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A203C1B6-DFDD-49ED-9FD1-D8E50F1BFBD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A203C1B6-DFDD-49ED-9FD1-D8E50F1BFBD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

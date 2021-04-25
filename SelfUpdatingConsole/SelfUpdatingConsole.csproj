@@ -11,7 +11,7 @@
     <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/jasondavis303/SelfUpdatingApps</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps</RepositoryUrl>
+    <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps.git</RepositoryUrl>
     <Authors>Jason Davis</Authors>
     <Copyright>jasondavis303</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -57,5 +57,7 @@ Linux: https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/downloa
   </ItemGroup>
 
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
+
+  <Import Project="..\SharedAppCode\SharedAppCode.projitems" Label="Shared" />
 
 </Project>

@@ -80,13 +80,13 @@ namespace SelfUpdatingApp
                 foreach (var file in sourceFiles)
                 {
                     using var fileStream = file.OpenAsyncRead();
-                    string entryName = file.FullName[inDir.Length..];
+                    string entryName = file.FullName.Substring(inDir.Length);
                     using var entryStream = archive.CreateEntry(entryName, CompressionLevel.Optimal).Open();
                     long readFromFile = 0;
                     while (readFromFile < file.Length)
                     {
-                        int thisRead = await fileStream.ReadAsync(buffer.AsMemory(0, Constants.BUFFER_SIZE)).ConfigureAwait(false);
-                        await entryStream.WriteAsync(buffer.AsMemory(0, thisRead)).ConfigureAwait(false);
+                        int thisRead = await fileStream.ReadAsync(buffer, 0, Constants.BUFFER_SIZE).ConfigureAwait(false);
+                        await entryStream.WriteAsync(buffer, 0, thisRead).ConfigureAwait(false);
                         readFromFile += thisRead;
                         totalRead += thisRead;
 

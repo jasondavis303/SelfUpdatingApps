@@ -3,20 +3,19 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>78478b50-104e-4a2d-82f5-5b19129be5c8</SharedGUID>
+    <SharedGUID>17d4753d-a348-46b8-bc6f-ee239775ffea</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>SelfUpdatingApp</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CLOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Installer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Path2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ProgressData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)RegistryEntries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InstallResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWshShortcut.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Manager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StreamHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Packager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shortcut.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Uninstaller.cs" />
   </ItemGroup>
 </Project>
