@@ -20,7 +20,7 @@ jobs:
         id: set_version
         run: |
           Invoke-WebRequest -Uri https://github.com/jasondavis303/TimestampVersion/releases/latest/download/tsv.exe -OutFile tsv.exe
-          .\tsv.exe --xml-files SelfUpdatingConsole\SelfUpdatingConsole.csproj SelfUpdatingConsoleLib\SelfUpdatingConsoleLib.csproj SelfUpdatingWinForms\SelfUpdatingWinFormsLib.csproj SelfUpdatingWinForms\SelfUpdatingWinFormsLib.csproj --set-ov --verbose
+          .\tsv.exe --xml-files SelfUpdatingConsole\SelfUpdatingConsole.csproj SelfUpdatingConsoleLib\SelfUpdatingConsoleLib.csproj SelfUpdatingWinForms\SelfUpdatingWinForms.csproj SelfUpdatingWinFormsLib\SelfUpdatingWinFormsLib.csproj --set-ov --verbose
 
      
       - name: Build
