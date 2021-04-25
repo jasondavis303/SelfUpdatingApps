@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IWshShortcut.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Manager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Packager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProgressData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shortcut.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Uninstaller.cs" />
   </ItemGroup>

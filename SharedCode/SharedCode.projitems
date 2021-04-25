@@ -13,7 +13,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Installer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Path2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ProgressData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RegistryEntries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Manager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StreamHelper.cs" />
