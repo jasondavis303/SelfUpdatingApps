@@ -43,7 +43,7 @@ namespace SelfUpdatingApp
                 {
                     if (key.GetSubKeyNames().Contains("UserChoice"))
                     {
-                        key.DeleteSubKeyTree("UserChoice");
+                        key.DeleteSubKeyTree("UserChoice", false);
                         changed = true;
                     }
                 }
