@@ -19,11 +19,15 @@ namespace SelfUpdatingApp
             if (IsHTTPUrl(src))
             {
                 var request = WebRequest.Create(src);
+                request.Proxy = WebRequest.GetSystemWebProxy();
+                request.Proxy.Credentials = CredentialCache.DefaultCredentials;
                 return request.GetResponseAsync();
             }
             else if (IsFTPUrl(src))
             {
                 var request = (FtpWebRequest)WebRequest.Create(src);
+                request.Proxy = WebRequest.GetSystemWebProxy();
+                request.Proxy.Credentials = CredentialCache.DefaultCredentials;
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
                 request.Credentials = new NetworkCredential("anonymous", string.Empty);
                 return request.GetResponseAsync();
