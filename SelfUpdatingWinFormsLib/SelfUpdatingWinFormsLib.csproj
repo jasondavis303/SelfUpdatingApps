@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net5.0-windows;netstandard2.0;net461;net48;netcoreapp3.1</TargetFrameworks>
     <LangVersion>8</LangVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <RootNamespace>SelfUpdatingApp</RootNamespace>
     <AssemblyName>suag</AssemblyName>
     <RepositoryUrl>https://github.com/jasondavis303/SelfUpdatingApps.git</RepositoryUrl>
@@ -23,7 +25,38 @@ https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suag.
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
 
   <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions">
+      <Version>4.7.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <Compile Remove="Installer.cs" />
+    <Compile Remove="frmCheckForUpdates.cs" />
+    <Compile Remove="frmCheckForUpdates.Designer.cs" />
+    <Compile Remove="Properties\Resources.Designer.cs" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
   </ItemGroup>
+
+  
+  <ItemGroup Condition="'$(TargetFramework)'!='netstandard2.0'">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+
+  
+  <ItemGroup Condition="'$(TargetFramework)'=='net461' or '$(TargetFramework)'=='net48'">
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
 
 </Project>

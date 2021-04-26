@@ -32,24 +32,25 @@ namespace SelfUpdatingApp
 
         public static async Task<XmlData> ReadAsync(string url)
         {
-            XDocument doc;
+            XDocument doc = null;
             if (StreamHelper.IsWebUrl(url))
             {
                 using var response = await StreamHelper.GetWebResponseAsync(url).ConfigureAwait(false);
                 using var stream = response.GetResponseStream();
-#if NET || NETSTANDARD2_0
-                doc = XDocument.Load(stream, LoadOptions.None);       
-#else
+
+#if NETCOREAPP
                 doc = await XDocument.LoadAsync(stream, LoadOptions.None, default).ConfigureAwait(false);
+#else
+                doc = XDocument.Load(stream, LoadOptions.None);
 #endif
             }
             else
             {
                 using var stream = StreamHelper.OpenAsyncRead(url);
-#if NET || NETSTANDARD2_0
-                doc = XDocument.Load(stream, LoadOptions.None);
-#else
+#if NETCOREAPP
                 doc = await XDocument.LoadAsync(stream, LoadOptions.None, default).ConfigureAwait(false);
+#else
+                doc = XDocument.Load(stream, LoadOptions.None);
 #endif
             }
 

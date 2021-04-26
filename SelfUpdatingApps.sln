@@ -23,11 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfUpdatingConsoleLib", "SelfUpdatingConsoleLib\SelfUpdatingConsoleLib.csproj", "{208BDA4B-908A-4A30-9F5A-1C68EA57CE51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfUpdatingConsoleLib", "SelfUpdatingConsoleLib\SelfUpdatingConsoleLib.csproj", "{208BDA4B-908A-4A30-9F5A-1C68EA57CE51}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedAppCode", "SharedAppCode\SharedAppCode.shproj", "{17D4753D-A348-46B8-BC6F-EE239775FFEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfUpdatingWinFormsLib", "SelfUpdatingWinFormsLib\SelfUpdatingWinFormsLib.csproj", "{A203C1B6-DFDD-49ED-9FD1-D8E50F1BFBD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfUpdatingWinFormsLib", "SelfUpdatingWinFormsLib\SelfUpdatingWinFormsLib.csproj", "{A203C1B6-DFDD-49ED-9FD1-D8E50F1BFBD3}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
