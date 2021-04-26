@@ -17,6 +17,7 @@ namespace SelfUpdatingApp
             //Download the newest version
             using (var wc = new WebClient())
             {
+                wc.Proxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                 wc.DownloadFile(ThisApp.SourceExe, tmpFile);
             }
 
