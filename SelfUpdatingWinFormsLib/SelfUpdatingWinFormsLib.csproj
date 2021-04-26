@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;netstandard2.0;net461;net48;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;netstandard2.0;net461;netcoreapp3.1</TargetFrameworks>
     <LangVersion>8</LangVersion>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <RootNamespace>SelfUpdatingApp</RootNamespace>
