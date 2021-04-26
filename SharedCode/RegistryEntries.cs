@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Linq;
 
 namespace SelfUpdatingApp
 {
@@ -30,35 +31,43 @@ namespace SelfUpdatingApp
 
         public static void RegisterSUAInfo()
         {
-            using (RegistryKey key = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Classes\{ThisApp.Extension}"))
-            {
-                key.SetValue("", $"{ThisApp.Handler}_file");
-            }
-
-            using (RegistryKey key = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Classes\{ThisApp.Handler}_file"))
-            {
-                key.SetValue("", "SelfUpdatingApp Manifest");
-            }
-
-            using (RegistryKey key = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Classes\{ThisApp.Handler}_file\DefaultIcon"))
-            {
-                key.SetValue("", $"\"{Path2.SelfUpdatingExe}\",0");
-            }
-
-            using (RegistryKey key = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Classes\{ThisApp.Handler}_file\Shell\open\command"))
-            {
-                key.SetValue("", $"\"{Path2.SelfUpdatingExe}\" install --package \"%1\"");
-            }
+            bool changed = UpdateRegistryIfNeeded($@"SOFTWARE\Classes\{ThisApp.Extension}", string.Empty, $"{ThisApp.Handler}_file");
+            changed |= UpdateRegistryIfNeeded($@"SOFTWARE\Classes\{ThisApp.Handler}_file", string.Empty, "SelfUpdatingApp Manifest");
+            changed |= UpdateRegistryIfNeeded($@"SOFTWARE\Classes\{ThisApp.Handler}_file\DefaultIcon", string.Empty, $"\"{Path2.SelfUpdatingExe}\",0");
+            changed |= UpdateRegistryIfNeeded($@"SOFTWARE\Classes\{ThisApp.Handler}_file\Shell\install", string.Empty, "Install");
+            changed |= UpdateRegistryIfNeeded($@"SOFTWARE\Classes\{ThisApp.Handler}_file\Shell\install\command", string.Empty, $"\"{Path2.SelfUpdatingExe}\" install --package \"%1\"");
 
             using (RegistryKey key = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\{ThisApp.Extension}"))
             {
-                try { key.DeleteSubKeyTree("UserChoice"); }
+                try
+                {
+                    if (key.GetSubKeyNames().Contains("UserChoice"))
+                    {
+                        key.DeleteSubKeyTree("UserChoice");
+                        changed = true;
+                    }
+                }
                 catch { }
             }
 
-
-            NativeMethods.SHChangeNotify(NativeMethods.HChangeNotifyEventID.SHCNE_ASSOCCHANGED, NativeMethods.HChangeNotifyFlags.SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
-
+            if (changed)
+                NativeMethods.SHChangeNotify(NativeMethods.HChangeNotifyEventID.SHCNE_ASSOCCHANGED, NativeMethods.HChangeNotifyFlags.SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
         }
+        
+        private static bool UpdateRegistryIfNeeded(string keyPath, string name, string value)
+        {
+            using var key = Registry.CurrentUser.CreateSubKey(keyPath);
+            
+            try
+            {
+                if ((string)key.GetValue(name, string.Empty) == value)
+                    return false;
+            }
+            catch { }
+    
+            key.SetValue(name, value, RegistryValueKind.String);
+            return true;
+        }
+    
     }
 }
