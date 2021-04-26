@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;netstandard2.0;net461;net48;netcoreapp3.1</TargetFrameworks>
     <LangVersion>8</LangVersion>
-    <UseWindowsForms>true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <RootNamespace>SelfUpdatingApp</RootNamespace>
     <AssemblyName>suag</AssemblyName>
@@ -26,7 +25,7 @@ https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suag.
 
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions">
-      <Version>4.7.1</Version>
+      <Version>5.0.0</Version>
     </PackageReference>
   </ItemGroup>
 
@@ -35,10 +34,8 @@ https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suag.
     <Compile Remove="frmCheckForUpdates.cs" />
     <Compile Remove="frmCheckForUpdates.Designer.cs" />
     <Compile Remove="Properties\Resources.Designer.cs" />
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
   </ItemGroup>
-
-  
+    
   <ItemGroup Condition="'$(TargetFramework)'!='netstandard2.0'">
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -58,5 +55,12 @@ https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suag.
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0' or '$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='net5.0-windows'">
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='net5.0-windows'">
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
 
 </Project>
