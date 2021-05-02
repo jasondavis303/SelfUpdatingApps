@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMRE;
+using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
@@ -30,7 +31,7 @@ namespace SelfUpdatingApp
         {
             try
             {
-                ManualResetEvent mre = new ManualResetEvent(false);
+                var mre = new AsyncManualResetEvent();
                 IProgress<ProgressData> prog = new Progress<ProgressData>(p =>
                 {
                     lblStatus.Text = p.Status;
@@ -50,7 +51,7 @@ namespace SelfUpdatingApp
                 }
 
                 var ret = await Installer.InstallAsync(_packageFile, prog, _createShortcuts);
-                await Task.Run(() => mre.WaitOne());
+                await mre.WaitAsync();
                 if (!ret.Success)
                     throw ret.Error;
 
