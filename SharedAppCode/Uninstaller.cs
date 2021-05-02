@@ -74,6 +74,8 @@ namespace SelfUpdatingApp
                 if (File.Exists(xmlPath))
                     File.Delete(xmlPath);
             });
+
+            progress?.Report(new ProgressData("Uninstall Complete", 100, true));
         }
     }
 }

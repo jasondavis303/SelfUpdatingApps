@@ -75,7 +75,7 @@ namespace SelfUpdatingApp
 
                 //Success
                 serverData.Save(Path2.LocalManifest(serverData.Id));
-                progress?.Report(new ProgressData("Done", 100));
+                progress?.Report(new ProgressData("Done", 100, true));
             }
             catch (Exception ex)
             {

@@ -100,7 +100,7 @@ namespace SelfUpdatingApp
                 }
             }
 
-            progress?.Report(new ProgressData(msg, 100));
+            progress?.Report(new ProgressData(msg, 100, true));
         }
     }
 }
