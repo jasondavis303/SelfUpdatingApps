@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,24 +30,27 @@ namespace SelfUpdatingApp
         {
             try
             {
-                using WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
+                ManualResetEvent mre = new ManualResetEvent(false);
+                IProgress<ProgressData> prog = new Progress<ProgressData>(p =>
                 {
                     lblStatus.Text = p.Status;
                     pbProgress.Value = p.Percent;
+                    if (p.Done)
+                        mre.Set();
                 });
 
                 if(_processId > 0)
                 {
                     await Task.Run(() =>
                     {
-                        ((IProgress<ProgressData>)prog).Report(new ProgressData("Waiting for previous app to close"));
+                        prog.Report(new ProgressData("Waiting for previous app to close"));
                         try { Process.GetProcessById(_processId).WaitForExit(); }
                         catch { }
                     });
                 }
 
                 var ret = await Installer.InstallAsync(_packageFile, prog, _createShortcuts);
-                await prog.WaitUntilDoneAsync();
+                await Task.Run(() => mre.WaitOne());
                 if (!ret.Success)
                     throw ret.Error;
 

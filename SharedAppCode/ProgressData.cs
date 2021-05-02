@@ -2,18 +2,19 @@
 {
     public class ProgressData
     {
-        public ProgressData(string status)
-        {
-            Status = status;
-        }
+        internal ProgressData(string status) : this(status, 0, false) { }
 
-        public ProgressData(string status, int percent)
+        internal ProgressData(string status, int percent) : this(status, percent, false) { }
+
+        internal ProgressData(string status, int percent, bool done)
         {
             Status = status;
             Percent = percent;
+            Done = done;
         }
 
-        public int Percent { get; set; }
-        public string Status { get; set; }
+        public int Percent { get; }
+        public string Status { get; }
+        public bool Done { get; }
     }
 }

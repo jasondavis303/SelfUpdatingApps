@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SelfUpdatingApp
@@ -20,14 +22,17 @@ namespace SelfUpdatingApp
         {
             try
             {
-                using WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
+                var mre = new ManualResetEvent(false);
+                IProgress<ProgressData> prog = new Progress<ProgressData>(p =>
                 {
                     lblStatus.Text = p.Status;
                     pbProgress.Value = p.Percent;
+                    if (p.Done)
+                        mre.Set();
                 });
 
                 await Packager.BuildPackageAsync(_opts, prog);
-                await prog.WaitUntilDoneAsync();
+                await Task.Run(() => mre.WaitOne());
                 ErrorCode = 0;
             }
             catch (AggregateException ex)

@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace SelfUpdatingApp
 {
@@ -25,7 +26,8 @@ namespace SelfUpdatingApp
                 }
                 catch { }
 
-                WaitableProgress<ProgressData> prog = new WaitableProgress<ProgressData>(p =>
+                ManualResetEvent mre = new ManualResetEvent(false);
+                IProgress<ProgressData> prog = new Progress<ProgressData>(p =>
                 {
                     string status = p.Status;
                     if (p.Percent > 0)
@@ -47,6 +49,9 @@ namespace SelfUpdatingApp
                         if (setPosWorked)
                             maxLen = Math.Max(maxLen, lastStatus.Length);
                     }
+
+                    if (p.Done)
+                        mre.Set();
                 });
 
                 var parsed = Parser.Default.ParseArguments<CLOptions.BuildOptions, CLOptions.InstallMeOptions, CLOptions.InstallOptions, CLOptions.UpdateOptions, CLOptions.UninstallOptions>(args);
@@ -55,14 +60,14 @@ namespace SelfUpdatingApp
                 parsed.WithParsed<CLOptions.BuildOptions>(opts =>
                 {
                     Packager.BuildPackageAsync(opts, prog).Wait();
-                    prog.WaitUntilDone();
+                    mre.WaitOne();
                 });
 
 
                 parsed.WithParsed<CLOptions.InstallOptions>(opts =>
                 {
                     var installed = Installer.InstallAsync(opts.Package, prog, true).Result;
-                    prog.WaitUntilDone();
+                    mre.WaitOne();
                     if (!installed.Success)
                         throw installed.Error;
                     var installedData = XmlData.Read(Path2.LocalManifest(installed.Id));
@@ -77,7 +82,7 @@ namespace SelfUpdatingApp
                         catch { }
 
                     var updated = Installer.InstallAsync(Path2.DepoManifest(XmlData.Read(Path2.LocalManifest(opts.AppId))), prog, false).Result;
-                    prog.WaitUntilDone();
+                    mre.WaitOne();
                     if (!updated.Success)
                         throw updated.Error;
                     string exePath = Path2.InstalledExe(XmlData.Read(Path2.LocalManifest(updated.Id)));
@@ -96,7 +101,7 @@ namespace SelfUpdatingApp
                 parsed.WithParsed<CLOptions.UninstallOptions>(opts =>
                 {
                     Uninstaller.UninstallAsync(opts.AppId, prog).Wait();
-                    prog.WaitUntilDone();
+                    mre.WaitOne();
                 });
 
 

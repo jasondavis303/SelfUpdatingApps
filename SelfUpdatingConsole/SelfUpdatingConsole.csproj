@@ -38,7 +38,6 @@ Linux: https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/downloa
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageReference Include="WaitableProgress" Version="21.4.19.576" />
   </ItemGroup>
 
   <ItemGroup>
