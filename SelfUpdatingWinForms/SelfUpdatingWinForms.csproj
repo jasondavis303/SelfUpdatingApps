@@ -42,7 +42,7 @@ https://github.com/jasondavis303/SelfUpdatingApps/releases/latest/download/suag.
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AMRE" Version="21.5.2.1178" />
+    <PackageReference Include="AMRE" Version="21.5.3.245" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
   </ItemGroup>

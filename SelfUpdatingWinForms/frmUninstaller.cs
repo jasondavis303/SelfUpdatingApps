@@ -1,5 +1,5 @@
-﻿using AMRE;
-using System;
+﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SelfUpdatingApp
@@ -21,7 +21,7 @@ namespace SelfUpdatingApp
         {
             try
             {
-                var mre = new AsyncManualResetEvent();
+                using var mre = new ManualResetEvent(false);
                 IProgress<ProgressData> prog = new Progress<ProgressData>((p) =>
                 {
                     lblStatus.Text = p.Status;
@@ -31,7 +31,7 @@ namespace SelfUpdatingApp
                 });
 
                 await Uninstaller.UninstallAsync(_opts.AppId, prog);
-                await mre.WaitAsync();
+                await mre.WaitOneAsync();
                 ErrorCode = 0;
             }
             catch (AggregateException ex)
