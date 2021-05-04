@@ -40,10 +40,10 @@ namespace SelfUpdatingApp
                 catch { }
 
                 //Install!
-                string status = $"Installing v{serverData.Version}";
-                progress?.Report(new ProgressData(status));
-
+                progress?.Report(new ProgressData($"Preparing to install v{serverData.Version}"));
+                
                 //Unzip from the web                   
+                string status = $"Installing v{serverData.Version}";
                 string zipSrc = Path2.DepoPackage(serverData);
                 if (StreamHelper.IsWebUrl(zipSrc))
                 {
