@@ -34,7 +34,17 @@ namespace SelfUpdatingApp
                 IProgress<ProgressData> prog = new Progress<ProgressData>(p =>
                 {
                     lblStatus.Text = p.Status;
-                    pbProgress.Value = p.Percent;
+                    if (p.Status == "Reading package" || (p.Status + string.Empty).StartsWith("Preparing to install"))
+                    {
+                        if (pbProgress.Style != ProgressBarStyle.Marquee)
+                            pbProgress.Style = ProgressBarStyle.Marquee;
+                    }
+                    else
+                    {
+                        if (pbProgress.Style != ProgressBarStyle.Blocks)
+                            pbProgress.Style = ProgressBarStyle.Blocks;
+                        pbProgress.Value = p.Percent;
+                    }
                     if (p.Done)
                         mre.Set();
                 });

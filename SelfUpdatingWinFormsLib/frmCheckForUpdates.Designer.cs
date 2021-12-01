@@ -78,6 +78,7 @@ namespace SelfUpdatingApp
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Size = new System.Drawing.Size(388, 23);
             this.pbProgress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.pbProgress.MarqueeAnimationSpeed = 20;
             this.pbProgress.TabIndex = 2;
             // 
             // lblStatus
